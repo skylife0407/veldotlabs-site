@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로미 미팅 초대</title>
+  <meta name="description" content="로미에서 열리는 로테이션 소개팅 미팅에 초대받았어요.">
+  <meta property="og:title" content="로미 미팅 초대">
+  <meta property="og:description" content="한 번의 미팅에서 여러 명과 1:1로 대화하는 로테이션 소개팅">
+  <meta property="og:image" content="https://veldotlabs.com/img/icon-192.png">
+  <link rel="icon" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --indigo:#4f46e5; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0; --soft:#f8fafc; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"Noto Sans KR",-apple-system,sans-serif; color:var(--ink); background:var(--soft); -webkit-font-smoothing:antialiased; }
+    main { max-width:440px; margin:0 auto; padding:32px 16px 48px; }
+    .brand { display:flex; align-items:center; gap:4px; justify-content:center; margin-bottom:24px; }
+    .brand img.mark { height:30px; } .brand img.word { height:26px; margin-left:-6px; }
+    .card { background:#fff; border:1px solid var(--line); border-radius:20px; padding:24px; }
+    .tag { display:inline-block; font-size:12px; font-weight:700; color:var(--indigo); background:#eef2ff; padding:4px 10px; border-radius:6px; }
+    h1 { font-size:22px; line-height:1.35; margin:12px 0 16px; word-break:keep-all; }
+    .row { display:flex; gap:8px; font-size:15px; color:#334155; margin:6px 0; }
+    .row b { color:var(--muted); font-weight:500; min-width:44px; }
+    .btn { display:block; text-align:center; text-decoration:none; font-weight:700; font-size:16px; padding:15px; border-radius:14px; margin-top:12px; }
+    .primary { background:var(--indigo); color:#fff; }
+    .ghost { background:#fff; color:var(--ink); border:1px solid var(--line); }
+    .note { font-size:13px; color:var(--muted); text-align:center; margin-top:20px; line-height:1.6; word-break:keep-all; }
+    .closed { color:#e11d48; font-weight:700; font-size:14px; margin-top:8px; }
+  </style>
+</head>
+<body>
+<main>
+  <div class="brand"><img class="mark" src="/img/logo-mark.png" alt=""><img class="word" src="/img/wordmark.png" alt="ROMI"></div>
+  <div class="card">
+    <span class="tag">미팅 초대</span>
+    <h1 id="title">로미 미팅</h1>
+    <div id="info"></div>
+    <div id="closed" class="closed" hidden></div>
+    <a id="open" class="btn primary" href="#">로미 앱에서 보기</a>
+    <a id="store" class="btn ghost" href="https://play.google.com/store/apps/details?id=kr.romi.app">앱 설치하기 (Android)</a>
+  </div>
+  <p class="note">로미는 한 번의 오프라인 미팅에서 여러 명과 돌아가며 1:1로 대화하는 로테이션 소개팅이에요.<br>참가 신청은 앱에서 할 수 있어요.</p>
+</main>
+<script>
+  // 공유 링크(앱 미팅 상세 → 공유)가 여는 페이지. 앱이 있으면 앱으로, 없으면 스토어로.
+  var SUPABASE_URL = "https://wmdopdsulyxempfzumui.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_uDy5v4MbYyEorjA6RxoU1Q_Why3_5ot"; // 앱에도 들어 있는 공개용 키 (읽기는 RLS로 제한)
+  var id = new URLSearchParams(location.search).get("id") || "";
+  var valid = /^[0-9a-f-]{36}$/.test(id);
+  var store = "https://play.google.com/store/apps/details?id=kr.romi.app";
+  var appUrl = valid ? "romi://meeting/" + id : "romi://";
+  var isAndroid = /android/i.test(navigator.userAgent);
+  // 안드로이드: intent 주소는 앱이 없으면 스토어로 자동 이동
+  var intentUrl = (valid ? "intent://meeting/" + id : "intent://") +
+    "#Intent;scheme=romi;package=kr.romi.app;S.browser_fallback_url=" + encodeURIComponent(store) + ";end";
+  document.getElementById("open").href = isAndroid ? intentUrl : appUrl;
+
+  function text(el, s) { el.textContent = s; }
+  if (valid) {
+    fetch(SUPABASE_URL + "/rest/v1/meetings?id=eq." + id +
+      "&select=title,meet_at,place_name,location,male_capacity,female_capacity,male_count,female_count,price,status,age_group",
+      { headers: { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY } })
+      .then(function (r) { return r.json(); })
+      .then(function (rows) {
+        var m = rows && rows[0];
+        if (!m) return;
+        text(document.getElementById("title"), m.title);
+        document.title = m.title + " · 로미";
+        var d = new Date(m.meet_at);
+        var days = ["일","월","화","수","목","금","토"];
+        var when = (d.getMonth()+1) + "월 " + d.getDate() + "일 (" + days[d.getDay()] + ") " +
+          String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
+        var rows2 = [["일시", when], ["장소", m.place_name || m.location],
+          ["인원", "남 " + m.male_count + "/" + m.male_capacity + " · 여 " + m.female_count + "/" + m.female_capacity]];
+        if (m.age_group) rows2.push(["연령대", m.age_group]);
+        rows2.push(["참가비", m.price > 0 ? m.price.toLocaleString("ko-KR") + "원" : "무료"]);
+        var info = document.getElementById("info");
+        rows2.forEach(function (r) {
+          var div = document.createElement("div"); div.className = "row";
+          var b = document.createElement("b"); b.textContent = r[0];
+          var s = document.createElement("span"); s.textContent = r[1];
+          div.appendChild(b); div.appendChild(s); info.appendChild(div);
+        });
+        var closed = document.getElementById("closed");
+        if (m.status === "cancelled") { closed.hidden = false; text(closed, "취소된 미팅이에요"); }
+        else if (m.status === "done" || d < new Date()) { closed.hidden = false; text(closed, "이미 끝난 미팅이에요"); }
+      })
+      .catch(function () {});
+  }
+</script>
+</body>
+</html>
