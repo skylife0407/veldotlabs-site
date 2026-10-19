@@ -27,6 +27,7 @@
     .ghost { background:#fff; color:var(--ink); border:1px solid var(--line); }
     .note { font-size:13px; color:var(--muted); text-align:center; margin-top:20px; line-height:1.6; word-break:keep-all; }
     .closed { color:#e11d48; font-weight:700; font-size:14px; margin-top:8px; }
+    [hidden] { display:none !important; }
   </style>
 </head>
 <body>
@@ -38,9 +39,10 @@
     <div id="info"></div>
     <div id="closed" class="closed" hidden></div>
     <a id="open" class="btn primary" href="#">로미 앱에서 보기</a>
+    <a id="web" class="btn ghost" href="/app/">웹에서 바로 보기</a>
     <a id="store" class="btn ghost" href="https://play.google.com/store/apps/details?id=kr.romi.app">앱 설치하기 (Android)</a>
   </div>
-  <p class="note">로미는 한 번의 오프라인 미팅에서 여러 명과 돌아가며 1:1로 대화하는 로테이션 소개팅이에요.<br>참가 신청은 앱에서 할 수 있어요.</p>
+  <p class="note">로미는 한 번의 오프라인 미팅에서 여러 명과 돌아가며 1:1로 대화하는 로테이션 소개팅이에요.<br>앱이 없어도 웹에서 바로 신청할 수 있어요.</p>
 </main>
 <script>
   // 공유 링크(앱 미팅 상세 → 공유)가 여는 페이지. 앱이 있으면 앱으로, 없으면 스토어로.
@@ -55,6 +57,14 @@
   var intentUrl = (valid ? "intent://meeting/" + id : "intent://") +
     "#Intent;scheme=romi;package=kr.romi.app;S.browser_fallback_url=" + encodeURIComponent(store) + ";end";
   document.getElementById("open").href = isAndroid ? intentUrl : appUrl;
+  // 웹앱(veldotlabs.com/app): 앱 없이 바로 보기·신청. 안드로이드가 아니면(아이폰·PC) 웹이 첫 버튼
+  var web = document.getElementById("web");
+  web.href = valid ? "/app/meeting/" + id : "/app/";
+  if (!isAndroid) {
+    document.getElementById("open").hidden = true;
+    document.getElementById("store").hidden = true;
+    web.className = "btn primary";
+  }
 
   function text(el, s) { el.textContent = s; }
   if (valid) {
