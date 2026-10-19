@@ -48,18 +48,22 @@
   // 공유 링크(앱 미팅 상세 → 공유)가 여는 페이지. 앱이 있으면 앱으로, 없으면 스토어로.
   var SUPABASE_URL = "https://wmdopdsulyxempfzumui.supabase.co";
   var SUPABASE_KEY = "sb_publishable_uDy5v4MbYyEorjA6RxoU1Q_Why3_5ot"; // 앱에도 들어 있는 공개용 키 (읽기는 RLS로 제한)
-  var id = new URLSearchParams(location.search).get("id") || "";
+  var q = new URLSearchParams(location.search);
+  var id = q.get("id") || "";
   var valid = /^[0-9a-f-]{36}$/.test(id);
+  // 비공개 미팅 키 (db/052): 있으면 앱·웹 링크에도 넘기고, 미리보기는 키 확인 RPC로
+  var key = q.get("k") || "";
+  var keyQs = key ? "?k=" + encodeURIComponent(key) : "";
   var store = "https://play.google.com/store/apps/details?id=kr.romi.app";
-  var appUrl = valid ? "romi://meeting/" + id : "romi://";
+  var appUrl = valid ? "romi://meeting/" + id + keyQs : "romi://";
   var isAndroid = /android/i.test(navigator.userAgent);
   // 안드로이드: intent 주소는 앱이 없으면 스토어로 자동 이동
-  var intentUrl = (valid ? "intent://meeting/" + id : "intent://") +
+  var intentUrl = (valid ? "intent://meeting/" + id + keyQs : "intent://") +
     "#Intent;scheme=romi;package=kr.romi.app;S.browser_fallback_url=" + encodeURIComponent(store) + ";end";
   document.getElementById("open").href = isAndroid ? intentUrl : appUrl;
   // 웹앱(veldotlabs.com/app): 앱 없이 바로 보기·신청. 안드로이드가 아니면(아이폰·PC) 웹이 첫 버튼
   var web = document.getElementById("web");
-  web.href = valid ? "/app/meeting/" + id : "/app/";
+  web.href = valid ? "/app/meeting/" + id + keyQs : "/app/";
   if (!isAndroid) {
     document.getElementById("open").hidden = true;
     document.getElementById("store").hidden = true;
@@ -68,13 +72,18 @@
 
   function text(el, s) { el.textContent = s; }
   if (valid) {
-    fetch(SUPABASE_URL + "/rest/v1/meetings?id=eq." + id +
-      "&select=title,meet_at,place_name,location,male_capacity,female_capacity,male_count,female_count,price,status,age_group",
-      { headers: { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY } })
+    var headers = { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" };
+    (key
+      ? fetch(SUPABASE_URL + "/rest/v1/rpc/meeting_link_preview", {
+          method: "POST", headers: headers, body: JSON.stringify({ p_meeting: id, p_key: key }) })
+      : fetch(SUPABASE_URL + "/rest/v1/meetings?id=eq." + id +
+          "&select=title,meet_at,place_name,location,male_capacity,female_capacity,male_count,female_count,price,status,age_group",
+          { headers: headers }))
       .then(function (r) { return r.json(); })
       .then(function (rows) {
         var m = rows && rows[0];
         if (!m) return;
+        if (m.is_private) text(document.querySelector(".tag"), "비공개 미팅 초대");
         text(document.getElementById("title"), m.title);
         document.title = m.title + " · 로미";
         var d = new Date(m.meet_at);
