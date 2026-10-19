@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로미 호스트</title>
+  <meta name="description" content="로미 호스트의 미팅과 후기">
+  <meta property="og:title" content="로미 호스트">
+  <meta property="og:description" content="로테이션 소개팅 로미 — 호스트의 모집 중인 미팅과 후기">
+  <meta property="og:image" content="https://veldotlabs.com/img/icon-192.png">
+  <link rel="icon" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --indigo:#4f46e5; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0; --soft:#f8fafc; --amber:#f59e0b; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"Noto Sans KR",-apple-system,sans-serif; color:var(--ink); background:var(--soft); -webkit-font-smoothing:antialiased; }
+    main { max-width:440px; margin:0 auto; padding:28px 16px 48px; }
+    .brand { display:flex; align-items:center; gap:4px; justify-content:center; margin-bottom:20px; }
+    .brand img.mark { height:30px; } .brand img.word { height:26px; margin-left:-6px; }
+    .card { background:#fff; border:1px solid var(--line); border-radius:20px; padding:20px; margin-bottom:16px; }
+    h1 { font-size:24px; margin:0; }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:10px; }
+    .chip { font-size:12px; font-weight:700; padding:4px 10px; border-radius:999px; background:#fef3c7; color:#92400e; }
+    .star { color:var(--amber); }
+    .meta { font-size:13px; color:var(--muted); margin-top:8px; }
+    .intro { font-size:15px; line-height:1.7; color:#334155; margin-top:14px; white-space:pre-wrap; word-break:keep-all; }
+    h2 { font-size:16px; margin:20px 4px 10px; }
+    .review { padding:12px 0; border-top:1px solid var(--line); } .review:first-child { border-top:0; padding-top:0; }
+    .review .body { font-size:14px; color:#334155; margin-top:4px; line-height:1.6; word-break:keep-all; }
+    .review .sub { font-size:12px; color:var(--muted); margin-top:2px; }
+    a.meeting { display:block; text-decoration:none; color:inherit; background:#fff; border:1px solid var(--line); border-radius:16px; padding:14px 16px; margin-bottom:10px; }
+    a.meeting b { font-size:15px; } a.meeting div { font-size:13px; color:var(--muted); margin-top:4px; }
+    .empty { font-size:14px; color:var(--muted); }
+    .btn { display:block; text-align:center; text-decoration:none; font-weight:700; font-size:16px; padding:15px; border-radius:14px; margin-top:10px; }
+    .primary { background:var(--indigo); color:#fff; } .ghost { background:#fff; color:var(--ink); border:1px solid var(--line); }
+    [hidden] { display:none !important; }
+  </style>
+</head>
+<body>
+<main>
+  <div class="brand"><img class="mark" src="/img/logo-mark.png" alt=""><img class="word" src="/img/wordmark.png" alt="ROMI"></div>
+  <div class="card">
+    <h1 id="name">로미 호스트</h1>
+    <div class="chips" id="chips"></div>
+    <div class="meta" id="meta"></div>
+    <div class="intro" id="intro" hidden></div>
+  </div>
+  <h2>모집 중인 미팅</h2>
+  <div id="meetings"><div class="card empty">불러오는 중…</div></div>
+  <h2 id="reviewsTitle">후기</h2>
+  <div class="card" id="reviews"><div class="empty">아직 후기가 없어요</div></div>
+  <a id="open" class="btn primary" href="#">로미 앱에서 보기</a>
+  <a id="web" class="btn ghost" href="/app/">웹에서 보기</a>
+</main>
+<script>
+  // 호스트 프로필 공유 페이지 (앱 호스트 프로필 → 공유, db/053). 후기는 익명
+  var SUPABASE_URL = "https://wmdopdsulyxempfzumui.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_uDy5v4MbYyEorjA6RxoU1Q_Why3_5ot"; // 앱에도 들어 있는 공개용 키 (읽기는 RLS·공개 RPC로 제한)
+  var id = new URLSearchParams(location.search).get("id") || "";
+  var valid = /^[0-9a-f-]{36}$/.test(id);
+  var isAndroid = /android/i.test(navigator.userAgent);
+  var store = "https://play.google.com/store/apps/details?id=kr.romi.app";
+  var open = document.getElementById("open"), web = document.getElementById("web");
+  open.href = isAndroid
+    ? "intent://host/" + id + "#Intent;scheme=romi;package=kr.romi.app;S.browser_fallback_url=" + encodeURIComponent(store) + ";end"
+    : "romi://host/" + id;
+  web.href = valid ? "/app/host/" + id : "/app/";
+  if (!isAndroid) { open.hidden = true; web.className = "btn primary"; }
+
+  var H = { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" };
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function stars(n) { var s = ""; for (var i = 1; i <= 5; i++) s += i <= Math.round(n) ? "★" : "☆"; return s; }
+  function when(iso) {
+    var d = new Date(iso), days = ["일","월","화","수","목","금","토"];
+    return (d.getMonth()+1) + "월 " + d.getDate() + "일 (" + days[d.getDay()] + ") " +
+      String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
+  }
+  if (valid) {
+    fetch(SUPABASE_URL + "/rest/v1/rpc/host_profile", { method: "POST", headers: H, body: JSON.stringify({ p_host: id }) })
+      .then(function (r) { return r.json(); })
+      .then(function (p) {
+        if (!p || !p.nickname) { document.getElementById("name").textContent = "볼 수 없는 호스트예요"; return; }
+        document.title = p.nickname + " · 로미 호스트";
+        document.getElementById("name").textContent = p.nickname;
+        var chips = document.getElementById("chips");
+        chips.appendChild(el("span", "chip",
+          p.is_new ? "🏆 신규 호스트" : p.success_rate != null ? "🏆 성사율 " + p.success_rate + "%" : "🏆 호스트"));
+        if (p.review_count > 0) {
+          var s = el("span");
+          s.appendChild(el("span", "star", "★ "));
+          s.appendChild(el("b", null, Number(p.rating).toFixed(1)));
+          s.appendChild(el("span", "meta", " 후기 " + p.review_count));
+          chips.appendChild(s);
+        }
+        document.getElementById("meta").textContent = "진행한 미팅 " + p.done_count + "회" + (p.region ? " · " + p.region : "");
+        if (p.intro) { var i = document.getElementById("intro"); i.textContent = p.intro; i.hidden = false; }
+        var box = document.getElementById("reviews");
+        if (p.recent_reviews && p.recent_reviews.length) {
+          document.getElementById("reviewsTitle").textContent = "최근 후기";
+          box.innerHTML = "";
+          p.recent_reviews.forEach(function (r) {
+            var d = el("div", "review");
+            d.appendChild(el("div", "star", stars(r.rating)));
+            if (r.body) d.appendChild(el("div", "body", r.body));
+            d.appendChild(el("div", "sub", r.meeting_title));
+            box.appendChild(d);
+          });
+        }
+      }).catch(function () {});
+    fetch(SUPABASE_URL + "/rest/v1/meetings?host_id=eq." + id + "&status=eq.open&is_private=eq.false&meet_at=gt." +
+          encodeURIComponent(new Date().toISOString()) +
+          "&select=id,title,meet_at,place_name,location,male_count,female_count,male_capacity,female_capacity&order=meet_at.asc",
+          { headers: H })
+      .then(function (r) { return r.json(); })
+      .then(function (rows) {
+        var box = document.getElementById("meetings"); box.innerHTML = "";
+        if (!rows || !rows.length) { box.appendChild(el("div", "card empty", "지금 모집 중인 미팅이 없어요")); return; }
+        rows.forEach(function (m) {
+          var a = el("a", "meeting"); a.href = "/m/?id=" + m.id;
+          a.appendChild(el("b", null, m.title));
+          a.appendChild(el("div", null, when(m.meet_at) + " · " + (m.place_name || m.location)));
+          a.appendChild(el("div", null, "남 " + m.male_count + "/" + m.male_capacity + " · 여 " + m.female_count + "/" + m.female_capacity));
+          box.appendChild(a);
+        });
+      }).catch(function () {});
+  }
+</script>
+</body>
+</html>
