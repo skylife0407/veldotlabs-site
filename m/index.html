@@ -53,7 +53,12 @@
   var valid = /^[0-9a-f-]{36}$/.test(id);
   // 비공개 미팅 키 (db/052): 있으면 앱·웹 링크에도 넘기고, 미리보기는 키 확인 RPC로
   var key = q.get("k") || "";
-  var keyQs = key ? "?k=" + encodeURIComponent(key) : "";
+  // 확정 초대 키 (db/054): 앱·웹 미팅 상세가 '초대로 바로 참가'를 보여 줌
+  var inv = q.get("inv") || "";
+  var pass = new URLSearchParams();
+  if (key) pass.set("k", key);
+  if (inv) pass.set("inv", inv);
+  var keyQs = pass.toString() ? "?" + pass.toString() : "";
   var store = "https://play.google.com/store/apps/details?id=kr.romi.app";
   var appUrl = valid ? "romi://meeting/" + id + keyQs : "romi://";
   var isAndroid = /android/i.test(navigator.userAgent);
@@ -73,9 +78,9 @@
   function text(el, s) { el.textContent = s; }
   if (valid) {
     var headers = { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" };
-    (key
+    (key || inv
       ? fetch(SUPABASE_URL + "/rest/v1/rpc/meeting_link_preview", {
-          method: "POST", headers: headers, body: JSON.stringify({ p_meeting: id, p_key: key }) })
+          method: "POST", headers: headers, body: JSON.stringify({ p_meeting: id, p_key: key || inv }) })
       : fetch(SUPABASE_URL + "/rest/v1/meetings?id=eq." + id +
           "&select=title,meet_at,place_name,location,male_capacity,female_capacity,male_count,female_count,price,status,age_group",
           { headers: headers }))
@@ -84,6 +89,10 @@
         var m = rows && rows[0];
         if (!m) return;
         if (m.is_private) text(document.querySelector(".tag"), "비공개 미팅 초대");
+        if (inv) {
+          text(document.querySelector(".tag"), "참가 확정 초대");
+          text(document.querySelector(".note"), "호스트가 보낸 초대 링크예요. 이 링크로 열면 승인을 기다리지 않고 바로 참가가 확정돼요.");
+        }
         text(document.getElementById("title"), m.title);
         document.title = m.title + " · 로미";
         var d = new Date(m.meet_at);
