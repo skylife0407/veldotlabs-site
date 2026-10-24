@@ -3,21 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>로미 · 로테이션 소개팅 | 벨도트랩스</title>
-  <meta name="description" content="로미는 한 번의 오프라인 미팅에서 여러 명과 돌아가며 1:1로 대화하는 로테이션 소개팅 앱입니다. 벨도트랩스가 운영합니다.">
+  <title>벨도트랩스 (Veldot Labs)</title>
+  <meta name="description" content="벨도트랩스는 일상을 조금 더 낫게 만드는 모바일 앱을 만듭니다. 로테이션 소개팅 로미, 3일 습관 챌린지 작심3일.">
   <link rel="icon" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --indigo: #4f46e5;
-      --indigo-dark: #3730a3;
-      --pink: #ec4899;
       --ink: #0f172a;
       --muted: #64748b;
       --line: #e2e8f0;
       --soft: #f8fafc;
       --bg: #ffffff;
+      --accent: #4f46e5;
     }
     * { box-sizing: border-box; }
     body {
@@ -33,75 +31,60 @@
 
     header { border-bottom: 1px solid var(--line); }
     header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .logo { display: flex; align-items: center; gap: 4px; text-decoration: none; }
-    .logo .mark { height: 28px; }
-    .logo .word { height: 26px; margin-left: -6px; }
+    .brand { font-weight: 900; font-size: 20px; letter-spacing: -0.02em; text-decoration: none; }
+    .brand span { color: var(--accent); }
     nav a { font-size: 14px; color: var(--muted); text-decoration: none; margin-left: 20px; }
     nav a:hover { color: var(--ink); }
 
-    .hero { padding: 72px 0 56px; background: linear-gradient(180deg, #eef2ff 0%, #fff 100%); }
-    .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
-    .eyebrow { display: inline-block; font-size: 13px; font-weight: 700; color: var(--indigo); background: #e0e7ff; padding: 4px 12px; border-radius: 999px; }
-    h1 { font-size: 44px; line-height: 1.25; font-weight: 900; margin: 16px 0 16px; letter-spacing: -0.02em; }
-    h1 em { font-style: normal; color: var(--indigo); }
-    .lead { font-size: 18px; color: var(--muted); margin: 0 0 28px; }
-    .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--indigo); color: #fff; text-decoration: none; font-weight: 700; padding: 14px 22px; border-radius: 12px; }
-    .cta small { font-weight: 500; opacity: 0.85; }
-    .phones { display: flex; justify-content: center; gap: 16px; }
-    .phone { width: 46%; max-width: 220px; border-radius: 28px; border: 8px solid #0f172a; box-shadow: 0 20px 40px rgba(79,70,229,0.18); background: #fff; }
-    .phone:nth-child(2) { margin-top: 40px; }
+    .hero { padding: 80px 0 56px; background: linear-gradient(180deg, var(--soft) 0%, #fff 100%); }
+    h1 { font-size: 44px; line-height: 1.25; font-weight: 900; margin: 0 0 16px; letter-spacing: -0.02em; }
+    .lead { font-size: 18px; color: var(--muted); margin: 0; max-width: 620px; }
 
-    section { padding: 64px 0; }
-    h2 { font-size: 30px; font-weight: 900; margin: 0 0 8px; letter-spacing: -0.01em; }
-    .sub { color: var(--muted); margin: 0 0 32px; }
+    section { padding: 56px 0; }
+    h2 { font-size: 28px; font-weight: 900; margin: 0 0 24px; letter-spacing: -0.01em; }
 
-    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: s; }
-    .step { background: var(--soft); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
-    .step::before { counter-increment: s; content: counter(s); display: inline-flex; width: 28px; height: 28px; border-radius: 50%; background: var(--indigo); color: #fff; font-weight: 700; font-size: 14px; align-items: center; justify-content: center; }
-    .step h3 { font-size: 17px; margin: 12px 0 6px; }
-    .step p { font-size: 14px; color: var(--muted); margin: 0; }
+    .apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .app { border: 1px solid var(--line); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; background: #fff; }
+    .app .icon { width: 64px; height: 64px; border-radius: 16px; display: block; }
+    .app h3 { font-size: 20px; margin: 16px 0 2px; }
+    .app .kind { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
+    .app p.desc { font-size: 15px; color: #334155; margin: 0 0 16px; flex: 1; }
+    .badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; margin-bottom: 14px; align-self: flex-start; }
+    .badge.live { color: #047857; background: #d1fae5; }
+    .badge.beta { color: #4338ca; background: #e0e7ff; }
+    .badge.soon { color: var(--muted); background: #f1f5f9; }
+    .btns { display: flex; flex-wrap: wrap; gap: 8px; }
+    .btn { font-size: 14px; font-weight: 700; text-decoration: none; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line); }
+    .btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .btn:hover { border-color: var(--ink); }
+    .links { margin-top: 14px; font-size: 13px; color: var(--muted); }
+    .links a { color: var(--muted); margin-right: 10px; }
+    .app.soon { background: var(--soft); border-style: dashed; }
+    .app.soon .icon { background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 28px; color: #94a3b8; font-weight: 900; }
 
-    .safety { background: var(--soft); }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
-    .card h3 { font-size: 17px; margin: 0 0 6px; }
-    .card p { font-size: 14px; color: var(--muted); margin: 0; }
-    .card .tag { display: inline-block; font-size: 12px; font-weight: 700; color: var(--pink); margin-bottom: 8px; }
-
-    .host .wrap { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; align-items: center; }
-    .host ul { padding-left: 18px; color: var(--muted); }
-    .host li { margin-bottom: 8px; }
-    .host li strong { color: var(--ink); }
-
-    .legal-links { display: flex; flex-wrap: wrap; gap: 10px; }
-    .legal-links a { font-size: 14px; text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; }
-    .legal-links a:hover { border-color: var(--indigo); color: var(--indigo); }
+    .about { background: var(--soft); }
+    .about p { color: #334155; max-width: 680px; margin: 0 0 12px; }
 
     footer { border-top: 1px solid var(--line); padding: 32px 0 48px; font-size: 13px; color: var(--muted); }
     footer strong { color: var(--ink); }
     footer p { margin: 4px 0; }
 
+    @media (max-width: 860px) {
+      .apps { grid-template-columns: 1fr; }
+    }
     @media (max-width: 760px) {
       h1 { font-size: 32px; }
-      .hero { padding: 40px 0; }
-      .hero .wrap, .host .wrap { grid-template-columns: 1fr; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .cards { grid-template-columns: 1fr; }
-      nav a:not(:last-child) { display: none; }
-      section { padding: 48px 0; }
+      .hero { padding: 48px 0 40px; }
+      section { padding: 44px 0; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap">
-      <a class="logo" href="./" aria-label="로미">
-        <img class="mark" src="img/logo-mark.png" alt="">
-        <img class="word" src="img/wordmark.png" alt="ROMI">
-      </a>
+      <a class="brand" href="./">Veldot <span>Labs</span></a>
       <nav>
-        <a href="#how">이용 방법</a>
-        <a href="#safety">안전</a>
+        <a href="#apps">앱</a>
         <a href="mailto:contact@veldotlabs.com">문의</a>
       </nav>
     </div>
@@ -109,70 +92,61 @@
 
   <div class="hero">
     <div class="wrap">
-      <div>
-        <span class="eyebrow">로테이션 소개팅 앱</span>
-        <h1>한 번의 미팅에서<br><em>여러 명</em>과 1:1로</h1>
-        <p class="lead">로미는 호스트가 여는 오프라인 미팅에서 라운드마다 자리를 바꿔 대화하고, 서로 마음이 맞으면 매칭되는 소개팅 서비스예요.</p>
-        <a class="cta" href="#download">Google Play <small>출시 준비 중</small></a>
-      </div>
-      <div class="phones">
-        <img class="phone" src="img/intro.jpg" alt="로미 앱 소개 화면">
-        <img class="phone" src="img/home.jpg" alt="로미 앱 홈 화면: 추천 미팅과 모집 중인 미팅">
-      </div>
+      <h1>일상을 조금 더 낫게,<br>벨도트랩스</h1>
+      <p class="lead">벨도트랩스는 사람을 만나고, 습관을 만들고, 하루를 채우는 데 도움이 되는 모바일 앱을 만듭니다.</p>
     </div>
   </div>
 
-  <section id="how">
+  <section id="apps">
     <div class="wrap">
-      <h2>이렇게 진행돼요</h2>
-      <p class="sub">신청부터 매칭까지 앱 하나로</p>
-      <div class="steps">
-        <div class="step"><h3>미팅 신청</h3><p>지역·연령대·분위기로 미팅을 찾아 신청하면, 호스트가 확인하고 참가를 확정해요.</p></div>
-        <div class="step"><h3>현장 QR 출석</h3><p>당일 미팅 장소에서 호스트 화면의 QR을 스캔해 출석해요.</p></div>
-        <div class="step"><h3>라운드 대화</h3><p>라운드마다 상대를 바꿔 1:1로 대화해요. 대화 카드로 어색하지 않게.</p></div>
-        <div class="step"><h3>투표와 매칭</h3><p>끝나면 마음에 든 사람을 고르고, 서로 선택하면 매칭돼 채팅할 수 있어요.</p></div>
+      <h2>우리가 만든 앱</h2>
+      <div class="apps">
+        <div class="app">
+          <img class="icon" src="img/icon-192.png" alt="로미 아이콘">
+          <h3>로미</h3>
+          <p class="kind">로테이션 소개팅</p>
+          <span class="badge beta">웹에서 이용 가능 · Android 준비 중</span>
+          <p class="desc">호스트가 여는 오프라인 미팅에서 라운드마다 자리를 바꿔 1:1로 대화하고, 서로 마음이 맞으면 매칭돼요.</p>
+          <div class="btns">
+            <a class="btn primary" href="/romi/">자세히 보기</a>
+            <a class="btn" href="/app/">웹에서 이용</a>
+          </div>
+          <div class="links">
+            <a href="https://skylife0407.github.io/romi-legal/terms.html">이용약관</a>
+            <a href="https://skylife0407.github.io/romi-legal/privacy.html">개인정보처리방침</a>
+          </div>
+        </div>
+
+        <div class="app">
+          <img class="icon" src="img/jaksim3days.png" alt="작심3일 아이콘">
+          <h3>작심3일</h3>
+          <p class="kind">3일 습관 챌린지</p>
+          <span class="badge live">Google Play 출시</span>
+          <p class="desc">3일 단위로 가볍게 도전하고, 성공할 때마다 나만의 숲이 자라요. 팀과 함께 도전할 수도 있어요.</p>
+          <div class="btns">
+            <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.jaksim.threedays">Google Play</a>
+          </div>
+          <div class="links">
+            <a href="https://skylife0407.github.io/jaksim3days-legal/terms.html">이용약관</a>
+            <a href="https://skylife0407.github.io/jaksim3days-legal/privacy.html">개인정보처리방침</a>
+          </div>
+        </div>
+
+        <div class="app soon">
+          <div class="icon">+</div>
+          <h3>Coming soon</h3>
+          <p class="kind">새 앱 준비 중</p>
+          <span class="badge soon">준비 중</span>
+          <p class="desc">다음 앱을 만들고 있어요. 출시되면 이곳에서 가장 먼저 소개할게요.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="safety" class="safety">
+  <section class="about">
     <div class="wrap">
-      <h2>믿고 만날 수 있게</h2>
-      <p class="sub">실제 만남이라 신뢰와 안전을 먼저 생각했어요</p>
-      <div class="cards">
-        <div class="card"><span class="tag">본인인증</span><h3>19세 이상 · 1인 1계정</h3><p>미팅 신청과 호스트 활동 전에 휴대폰 본인인증을 해요. 한 사람은 한 계정만 쓸 수 있어요.</p></div>
-        <div class="card"><span class="tag">매너</span><h3>노쇼·직전 취소 관리</h3><p>노쇼나 직전 취소가 쌓이면 신청이 제한돼요. 호스트는 신청자의 출석 신뢰 정보를 확인할 수 있어요.</p></div>
-        <div class="card"><span class="tag">개인정보</span><h3>필요한 만큼만 공개</h3><p>목록에는 이름을 보이지 않고, 참가자 사진은 같은 미팅 참가자에게만 보여요. 참가자 화면은 캡처할 수 없어요.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="host">
-    <div class="wrap">
-      <div class="phones"><img class="phone" style="width:70%;max-width:260px" src="img/host-guide.jpg" alt="호스트 모드 안내 화면"></div>
-      <div>
-        <h2>호스트도 무료로</h2>
-        <p class="sub">누구나 호스트가 되어 미팅을 열 수 있어요</p>
-        <ul>
-          <li><strong>미팅 만들기</strong> — 일시·장소·정원과 최소 인원을 정해요</li>
-          <li><strong>신청자 승인</strong> — 신청이 오면 확인하고 참가를 확정해요</li>
-          <li><strong>진행 확정</strong> — 시작 24시간 전에 인원을 확인해 진행할지 정해요</li>
-          <li><strong>당일 진행</strong> — 출석 QR, 라운드 넘기기, 투표까지 앱이 도와줘요</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="download">
-    <div class="wrap">
-      <h2>곧 만나요</h2>
-      <p class="sub">로미는 Google Play 출시를 준비하고 있어요. 문의는 <a href="mailto:contact@veldotlabs.com">contact@veldotlabs.com</a>으로 보내 주세요.</p>
-      <div class="legal-links">
-        <a href="https://skylife0407.github.io/romi-legal/terms.html">이용약관</a>
-        <a href="https://skylife0407.github.io/romi-legal/privacy.html"><strong>개인정보처리방침</strong></a>
-        <a href="https://skylife0407.github.io/romi-legal/account-deletion.html">계정 및 데이터 삭제</a>
-        <a href="https://skylife0407.github.io/romi-legal/child-safety.html">아동 안전 정책</a>
-      </div>
+      <h2>문의</h2>
+      <p>앱 이용, 제휴, 개인정보 관련 문의는 <a href="mailto:contact@veldotlabs.com">contact@veldotlabs.com</a>으로 보내 주세요.</p>
     </div>
   </section>
 
@@ -183,7 +157,7 @@
       <p>통신판매업신고 제2026-서울송파-2843호</p>
       <p>서울특별시 송파구 백제고분로 497 (05545)</p>
       <p>이메일 <a href="mailto:contact@veldotlabs.com">contact@veldotlabs.com</a></p>
-      <p style="margin-top:12px">© 2026 Veldot Labs. 로미(ROMI)는 벨도트랩스의 서비스입니다.</p>
+      <p style="margin-top:12px">© 2026 Veldot Labs. 로미(ROMI)·작심3일은 벨도트랩스의 서비스입니다.</p>
     </div>
   </footer>
 </body>
