@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>작심3일 · 3일 습관 챌린지 | 벨도트랩스</title>
+  <meta name="description" content="작심3일은 3일 단위로 가볍게 도전하고, 성공할 때마다 나만의 숲이 자라는 습관 앱입니다. 벨도트랩스가 운영합니다.">
+  <link rel="icon" href="../img/jaksim3days.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #1f5e45;
+      --green-dark: #154532;
+      --leaf: #65a30d;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --soft: #f6faf7;
+      --bg: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans KR", -apple-system, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+    header { border-bottom: 1px solid var(--line); }
+    header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 900; font-size: 19px; }
+    .logo img { width: 32px; height: 32px; border-radius: 8px; }
+    nav a { font-size: 14px; color: var(--muted); text-decoration: none; margin-left: 20px; }
+    nav a:hover { color: var(--ink); }
+
+    .hero { padding: 72px 0 56px; background: linear-gradient(180deg, #e8f3ec 0%, #fff 100%); }
+    .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+    .eyebrow { display: inline-block; font-size: 13px; font-weight: 700; color: var(--green); background: #d5eadd; padding: 4px 12px; border-radius: 999px; }
+    h1 { font-size: 44px; line-height: 1.25; font-weight: 900; margin: 16px 0 16px; letter-spacing: -0.02em; }
+    h1 em { font-style: normal; color: var(--green); }
+    .lead { font-size: 18px; color: var(--muted); margin: 0 0 28px; }
+    .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--green); color: #fff; text-decoration: none; font-weight: 700; padding: 14px 22px; border-radius: 12px; }
+    .cta:hover { background: var(--green-dark); }
+    .phones { display: flex; justify-content: center; gap: 16px; }
+    .phone { width: 46%; max-width: 220px; border-radius: 28px; border: 8px solid #0f172a; box-shadow: 0 20px 40px rgba(31,94,69,0.18); background: #fff; }
+    .phone:nth-child(2) { margin-top: 40px; }
+
+    section { padding: 64px 0; }
+    h2 { font-size: 30px; font-weight: 900; margin: 0 0 8px; letter-spacing: -0.01em; }
+    .sub { color: var(--muted); margin: 0 0 32px; }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: s; }
+    .step { background: var(--soft); border: 1px solid var(--line); border-radius: 16px; padding: 20px; }
+    .step::before { counter-increment: s; content: counter(s); display: inline-flex; width: 28px; height: 28px; border-radius: 50%; background: var(--green); color: #fff; font-weight: 700; font-size: 14px; align-items: center; justify-content: center; }
+    .step h3 { font-size: 17px; margin: 12px 0 6px; }
+    .step p { font-size: 14px; color: var(--muted); margin: 0; }
+
+    .team { background: var(--soft); }
+    .team .wrap { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; align-items: center; }
+    .team ul, .feat ul { padding-left: 18px; color: var(--muted); }
+    .team li, .feat li { margin-bottom: 8px; }
+    .team li strong, .feat li strong { color: var(--ink); }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+    .card h3 { font-size: 17px; margin: 0 0 6px; }
+    .card p { font-size: 14px; color: var(--muted); margin: 0; }
+    .card .tag { display: inline-block; font-size: 12px; font-weight: 700; color: var(--leaf); margin-bottom: 8px; }
+
+    .legal-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .legal-links a { font-size: 14px; text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; }
+    .legal-links a:hover { border-color: var(--green); color: var(--green); }
+
+    footer { border-top: 1px solid var(--line); padding: 32px 0 48px; font-size: 13px; color: var(--muted); }
+    footer strong { color: var(--ink); }
+    footer p { margin: 4px 0; }
+
+    @media (max-width: 760px) {
+      h1 { font-size: 32px; }
+      .hero { padding: 40px 0; }
+      .hero .wrap, .team .wrap { grid-template-columns: 1fr; }
+      .steps, .cards { grid-template-columns: 1fr; }
+      nav a:not(:last-child) { display: none; }
+      section { padding: 48px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="./"><img src="../img/jaksim3days.png" alt="">작심3일</a>
+      <nav>
+        <a href="#how">이용 방법</a>
+        <a href="#team">팀 챌린지</a>
+        <a href="/">벨도트랩스</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">3일 습관 챌린지</span>
+        <h1>21일은 길어요.<br><em>3일</em>만 해 보세요</h1>
+        <p class="lead">작심3일은 3일을 한 사이클로 도전하는 습관 앱이에요. 3일 중 2일만 성공해도 성공으로 기록되고, 성공할 때마다 나만의 숲이 자라요.</p>
+        <a class="cta" href="https://play.google.com/store/apps/details?id=com.jaksim.threedays">Google Play에서 받기</a>
+      </div>
+      <div class="phones">
+        <img class="phone" src="../img/j3-forest.jpg" alt="작심3일 개인 숲 화면: 습관을 성공할 때마다 타일이 열리는 숲">
+        <img class="phone" src="../img/j3-home.jpg" alt="작심3일 홈 화면: 오늘의 습관과 3일 진행 상황">
+      </div>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="wrap">
+      <h2>이렇게 도전해요</h2>
+      <p class="sub">짧게 끊어서, 성공 경험을 차곡차곡</p>
+      <div class="steps">
+        <div class="step"><h3>습관 만들기</h3><p>걷기, 독서, 물 마시기처럼 해 보고 싶은 습관을 정하고 알림 시간을 맞춰요.</p></div>
+        <div class="step"><h3>3일 도전</h3><p>하루하루 완료를 체크하고 사진·메모로 기록해요. 3일 중 2일이면 성공이에요.</p></div>
+        <div class="step"><h3>숲이 자라요</h3><p>사이클을 성공할 때마다 숲에 타일이 열리고, 나무와 꽃을 원하는 자리에 심을 수 있어요.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" class="team">
+    <div class="wrap">
+      <div class="phones"><img class="phone" style="width:70%;max-width:260px" src="../img/j3-team.jpg" alt="작심3일 팀 숲 화면: 팀원 스코어보드와 함께 가꾸는 숲"></div>
+      <div>
+        <h2>팀과 함께 자라는 숲</h2>
+        <p class="sub">혼자 의지가 약할 땐 팀이 끌어줘요</p>
+        <ul>
+          <li><strong>초대 코드로 팀 구성</strong> — 최대 5명까지 함께해요</li>
+          <li><strong>팀 숲</strong> — 각자의 깃발 색으로 한 숲을 같이 가꿔요</li>
+          <li><strong>팀 사이클</strong> — 팀원 모두 2일 이상 성공하면 팀 성공이에요</li>
+          <li><strong>스코어보드</strong> — 완주 횟수와 기여도를 함께 봐요</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="feat">
+    <div class="wrap">
+      <h2>이런 것도 있어요</h2>
+      <p class="sub">기록하고, 돌아보고, 나누기</p>
+      <div class="cards">
+        <div class="card"><span class="tag">기록</span><h3>사진·메모 인증</h3><p>오늘 한 일을 사진과 메모로 남기고, 월별 달력에서 한눈에 돌아봐요.</p></div>
+        <div class="card"><span class="tag">통계</span><h3>습관 대시보드</h3><p>평균 성공률, 최장 연속 성공, 주간 추이까지 내 습관을 숫자로 확인해요.</p></div>
+        <div class="card"><span class="tag">개인정보</span><h3>계정 없이도 시작</h3><p>개인 습관은 계정 연결 없이 쓸 수 있어요. 팀 챌린지와 백업만 Google 계정이 필요해요.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="download" style="padding-top:0">
+    <div class="wrap">
+      <h2>이번 주, 3일만</h2>
+      <p class="sub">작심3일은 Google Play에서 받을 수 있어요. 문의는 <a href="mailto:contact@veldotlabs.com">contact@veldotlabs.com</a>으로 보내 주세요.</p>
+      <div class="legal-links">
+        <a href="https://play.google.com/store/apps/details?id=com.jaksim.threedays"><strong>Google Play</strong></a>
+        <a href="https://skylife0407.github.io/jaksim3days-legal/terms.html">이용약관</a>
+        <a href="https://skylife0407.github.io/jaksim3days-legal/privacy.html"><strong>개인정보처리방침</strong></a>
+        <a href="https://skylife0407.github.io/jaksim3days-legal/account-deletion.html">계정 및 데이터 삭제</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p><strong>벨도트랩스 (Veldot Labs)</strong></p>
+      <p>대표 전현진 · 사업자등록번호 157-17-02864</p>
+      <p>통신판매업신고 제2026-서울송파-2843호</p>
+      <p>서울특별시 송파구 백제고분로 497 (05545)</p>
+      <p>이메일 <a href="mailto:contact@veldotlabs.com">contact@veldotlabs.com</a></p>
+      <p style="margin-top:12px">© 2026 Veldot Labs. 작심3일은 벨도트랩스의 서비스입니다.</p>
+    </div>
+  </footer>
+</body>
+</html>
