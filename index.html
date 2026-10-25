@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>벨도트랩스 (Veldot Labs)</title>
   <meta name="description" content="벨도트랩스는 일상을 조금 더 낫게 만드는 모바일 앱을 만듭니다. 로테이션 소개팅 로미, 3일 습관 챌린지 작심3일.">
-  <link rel="icon" href="favicon.png">
+  <link rel="icon" href="favicon-veldot.png">
+  <link rel="apple-touch-icon" href="img/veldotlabs-mark.png">
+  <meta property="og:image" content="https://veldotlabs.com/img/veldotlabs-logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
@@ -31,8 +33,8 @@
 
     header { border-bottom: 1px solid var(--line); }
     header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .brand { font-weight: 900; font-size: 20px; letter-spacing: -0.02em; text-decoration: none; }
-    .brand span { color: var(--accent); }
+    .brand { display: flex; align-items: center; text-decoration: none; }
+    .brand img { height: 22px; width: auto; display: block; }
     nav a { font-size: 14px; color: var(--muted); text-decoration: none; margin-left: 20px; }
     nav a:hover { color: var(--ink); }
 
@@ -82,7 +84,7 @@
 <body>
   <header>
     <div class="wrap">
-      <a class="brand" href="./">Veldot <span>Labs</span></a>
+      <a class="brand" href="./"><img src="img/veldotlabs-logo.png" alt="벨도트랩스 VELDOTLABS"></a>
       <nav>
         <a href="#apps">앱</a>
         <a href="mailto:contact@veldotlabs.com">문의</a>
@@ -153,6 +155,7 @@
 
   <footer>
     <div class="wrap">
+      <img src="img/veldotlabs-logo.png" alt="VELDOTLABS" style="height:16px;width:auto;opacity:.85;margin-bottom:10px">
       <p><strong>벨도트랩스 (Veldot Labs)</strong></p>
       <p>대표 전현진 · 사업자등록번호 157-17-02864</p>
       <p>통신판매업신고 제2026-서울송파-2843호</p>
