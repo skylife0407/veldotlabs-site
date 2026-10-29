@@ -1,0 +1,179 @@
+<!doctype html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Data Analysis Workspace — Texas Hold'em</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:12px;background:#f9f9f9;font-family:Arial,'Noto Sans KR',system-ui,sans-serif;color:#303030}.app{max-width:746px;margin:auto;background:#fff;border:1px solid #e5e5e5;border-radius:17px;padding:13px 13px 16px}.app button,.app input{font:inherit}.app button{cursor:pointer;touch-action:manipulation}.app button:disabled{opacity:.32;cursor:default}.head{display:flex;gap:10px;align-items:center;margin:0 0 12px}.excel{width:16px;height:16px;flex:none;color:#03984b}.title{font-size:14px;font-weight:700;flex:1}.session{font-size:10px;color:#aaa}.connection{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#f4f4f4;border-radius:9px;padding:9px 10px;font-size:11px;min-height:35px}.green{color:#00964b}.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#029a4b;margin-right:5px;vertical-align:middle}.data{width:100%;table-layout:fixed;border-collapse:collapse;margin-top:10px;font-size:12px}.data th{text-align:left;font-weight:400;height:34px;border-bottom:1px solid #eee}.data th:last-child,.data td:last-child{text-align:right}.data td{height:35px;padding:2px 0;border-bottom:1px solid #f0f0f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.data tr:last-child td{border-bottom:0}.data th:nth-child(1){width:38%}.data th:nth-child(2){width:32%}.data th:nth-child(3){width:30%}.role{display:inline-block;font-size:9px;color:#197546;background:#e2f2e9;border-radius:3px;padding:2px 3px;margin-left:3px;vertical-align:middle}.myturn{background:#f3fbf5}.muted{color:#999}.summary-line{display:flex;justify-content:space-between;gap:8px;align-items:center;background:#f5f5f5;border-radius:8px;padding:10px 9px;margin-top:11px;min-height:35px}.summary-line.private{background:transparent;padding-top:13px;padding-bottom:10px;margin-top:0}.lab{font-size:10px}.val{font-size:11px;font-weight:600;text-align:right;word-break:break-word}.funcs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:2px 0 7px}.fn{height:31px;border:none;background:transparent;color:#999;border-radius:22px;font-size:12px;font-weight:600}.fn.selected{background:#f0f0f0;color:#222}.fn:not(:disabled):focus-visible{outline:2px solid #18864b}.stateline{display:flex;justify-content:space-between;align-items:center;gap:6px;margin:10px 0 0}.stateline span:first-child{font-size:10px;color:#888}.tag{font-size:10px;border-radius:15px;padding:4px 8px;background:#ddf7e6;color:#08894b;font-weight:700}.tag.wait{background:#efefef;color:#888}.smallnote{font-size:10px;color:#939393;margin-top:9px}.extra{margin-top:11px;border-top:1px solid #efefef;padding-top:10px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.metric{border-radius:8px;background:#f6f6f6;padding:8px 7px}.metric small{display:block;font-size:9px;color:#8b8b8b}.metric b{display:block;font-size:12px;margin-top:3px;font-variant-numeric:tabular-nums}.legend{display:grid;grid-template-columns:repeat(4,1fr);margin:10px 0 7px;gap:4px}.legend span{text-align:center;color:#898989;font-size:9px}.raise{display:none;background:#f6f8f6;border:1px solid #e2e8e3;border-radius:9px;padding:9px;margin-top:9px}.raise.show{display:block}.raiseline{display:flex;gap:6px;margin:8px 0}.raise input{min-width:0;flex:1;padding:9px;border:1px solid #cdd9d1;background:#fff;border-radius:6px;color:#333;font-size:13px}.button{border:1px solid #d8e1da;background:#f7faf7;color:#25613f;border-radius:7px;padding:9px 12px;font-size:11px;font-weight:700;min-height:35px}.button.primary{background:#187a49;color:white;border-color:#187a49}.hint{font-size:10px;color:#888}.notice{font-size:11px;padding:9px;background:#f7f7f7;color:#555;border-radius:6px;margin-top:10px;min-height:34px;line-height:1.5}.result{display:none;border:1px solid #d8eadc;background:#f5faf6;border-radius:9px;padding:10px;margin-top:10px}.result.show{display:block}.result-title{font-size:12px;font-weight:800;color:#137346;margin:0 0 7px}.result-row{padding:6px 0;border-bottom:1px solid #e4ece5;font-size:11px;line-height:1.5}.result-row:last-child{border-bottom:0}.result-name{font-weight:700;color:#333}.result-amount{float:right;color:#187949;font-weight:700}.showdown{font-size:10px;color:#606d65;margin-top:8px}.showdown-row{display:flex;align-items:center;justify-content:space-between;gap:9px;padding:6px 0;border-bottom:1px solid #e6eee7}.showdown-row:last-child{border-bottom:0}.buttons{display:flex;align-items:center;gap:8px;margin-top:10px}.dealer{margin-left:auto;font-size:10px;color:#999}.log{margin-top:11px}.log summary{font-size:10px;color:#888;cursor:pointer}.logtext{max-height:150px;overflow-y:auto;background:#f8f8f8;border-radius:7px;font-size:10px;line-height:1.8;padding:8px;margin-top:6px;color:#666}@media(max-width:380px){body{padding:4px}.app{padding:10px}.data{font-size:11px}.title{font-size:13px}.session{font-size:9px}.role{font-size:8px;margin-left:1px;padding:2px}}
+</style></head><body><div class="app" id="holdem-app"><div class="head"><svg class="excel" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 10H21M10 3V21"/></svg><div class="title">Data Analysis Workspace</div><div class="session" id="session">Session 00024</div></div><div class="connection"><span>Simulation / Realtime Data</span><span class="green"><span class="dot"></span>Connected</span></div><table class="data"><thead><tr><th>ID</th><th>STATUS</th><th>BALANCE</th></tr></thead><tbody id="players"></tbody></table><div class="summary-line"><span class="lab">DATA SET</span><span class="val" id="shared">-- · -- · -- · -- · --</span></div><div class="summary-line private"><span class="lab">PRIVATE VALUES</span><span class="val" id="private">-- / --</span></div><div class="funcs"><button class="fn" data-action="fold">F1</button><button class="fn" data-action="call">F2</button><button class="fn" data-action="raise">F3</button><button class="fn selected" data-action="allin">F4</button></div><div class="stateline"><span id="selected">SELECTED FUNCTION: ALLIN</span><span class="tag" id="ready">Ready</span></div><div class="smallnote">CPU Local Session · BTN / SB / BB는 각 핸드마다 순환</div><div class="extra"><div class="metrics"><div class="metric"><small>ROUND</small><b id="phase">PREFLOP</b></div><div class="metric"><small>TOTAL POT</small><b id="pot">0</b></div><div class="metric"><small>TO CALL</small><b id="call">0</b></div></div><div class="legend"><span>F1 · FOLD</span><span>F2 · CHECK/CALL</span><span>F3 · RAISE</span><span>F4 · ALL IN</span></div><div class="raise" id="raise"><div style="font-size:11px;font-weight:700">RAISE — 이번 라운드 총 베팅액</div><div class="raiseline"><input type="number" id="raiseValue" min="200" step="100" value="200" aria-label="레이즈 총액"><button class="button primary" id="confirm">확인</button><button class="button" id="cancel">취소</button></div><div class="hint" id="raiseHint"></div></div><div class="notice" id="message" role="status">핸드를 준비하고 있습니다.</div><div class="result" id="result"><div class="result-title" id="resultTitle">HAND COMPLETE</div><div id="wins"></div><div class="showdown" id="hands"></div></div><div class="buttons"><button class="button primary" id="next" style="display:none">다음 핸드</button><button class="button" id="reset">새 게임</button><span class="dealer" id="positions"></span></div><details class="log"><summary>Session Activity (진행 기록)</summary><div class="logtext" id="log"></div></details></div></div>
+<script>
+(()=>{
+'use strict';
+const root=document.getElementById('holdem-app');if(root.dataset.ready)return;root.dataset.ready='1';
+const $=id=>root.querySelector('#'+id);
+const fmt=n=>Number(n).toLocaleString('en-US');
+const seats=['P001','P002','P003','P004'];
+const levels=['PREFLOP','FLOP','TURN','RIVER','SHOWDOWN'],BB=100,SB=50;
+const chars='23456789TJQKA',suits='SHDC';
+const cardName=r=>r===14?'A':r===13?'K':r===12?'Q':r===11?'J':r===10?'10':String(r);
+const code=c=>(c.r===10?'10':c.r<10?String(c.r):chars[c.r-2])+c.s;
+function newDeck(){let d=[];for(const s of suits)for(let r=2;r<=14;r++)d.push({r,s});for(let i=d.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]]}return d}
+function score5(cs){
+ const rs=cs.map(c=>c.r).sort((a,b)=>b-a);const ct={};rs.forEach(r=>ct[r]=(ct[r]||0)+1);
+ const gs=Object.keys(ct).map(Number).sort((a,b)=>ct[b]-ct[a]||b-a);
+ const unique=[...new Set(rs)];if(unique.includes(14))unique.push(1);
+ let straight=0;for(let i=0;i<=unique.length-5;i++)if(unique[i]-unique[i+4]===4){straight=unique[i];break}
+ const flush=cs.every(c=>c.s===cs[0].s);
+ if(flush&&straight)return [8,straight];
+ if(ct[gs[0]]===4)return [7,gs[0],gs[1]];
+ if(ct[gs[0]]===3&&ct[gs[1]]===2)return [6,gs[0],gs[1]];
+ if(flush)return [5,...rs];
+ if(straight)return [4,straight];
+ if(ct[gs[0]]===3)return [3,gs[0],...gs.slice(1)];
+ if(ct[gs[0]]===2&&ct[gs[1]]===2)return [2,Math.max(gs[0],gs[1]),Math.min(gs[0],gs[1]),gs[2]];
+ if(ct[gs[0]]===2)return [1,gs[0],...gs.slice(1)];
+ return [0,...rs]
+}
+function cmp(a,b){for(let i=0;i<Math.max(a.length,b.length);i++){const n=(a[i]||0)-(b[i]||0);if(n)return n}return 0}
+function best(cs){let v=null;for(let a=0;a<cs.length-4;a++)for(let b=a+1;b<cs.length-3;b++)for(let c=b+1;c<cs.length-2;c++)for(let d=c+1;d<cs.length-1;d++)for(let e=d+1;e<cs.length;e++){const x=score5([cs[a],cs[b],cs[c],cs[d],cs[e]]);if(!v||cmp(x,v)>0)v=x}return v}
+function handDesc(s){const r=cardName;switch(s[0]){case 8:return r(s[1])+' 하이 스트레이트 플러시';case 7:return r(s[1])+' 포카드';case 6:return r(s[1])+' 풀하우스 ('+r(s[2])+')';case 5:return r(s[1])+' 하이 플러시';case 4:return r(s[1])+' 하이 스트레이트';case 3:return r(s[1])+' 트리플';case 2:return r(s[1])+' / '+r(s[2])+' 투페어';case 1:return r(s[1])+' 원페어';default:return r(s[1])+' 하이카드'}}
+let S,sequence=0,timeout=null;
+function activity(t){S.message=t;S.log.unshift(t);if(S.log.length>45)S.log.pop()}
+function alive(){return S.players.filter(p=>p.in&&!p.fold)}
+function active(){return alive().filter(p=>p.stack>0)}
+function nextSeat(from,pred){for(let d=1;d<=4;d++){const i=(from+d+4)%4;if(pred(S.players[i]))return i}return -1}
+function amountOwed(p){return Math.max(0,S.bet-p.street)}
+function canRaise(p){return p.stack>0&&!S.acted.has(p.id)&&p.street+p.stack>S.bet}
+function commit(p,amount){let n=Math.max(0,Math.min(p.stack,Math.floor(amount)));p.stack-=n;p.street+=n;p.total+=n;p.allin=p.stack===0;return n}
+function totalPot(){return S.players.reduce((sum,p)=>sum+p.total,0)}
+function roles(p){if(!p.in)return '—';let r=[];if(p.id===S.dealer)r.push('BTN');if(p.id===S.sb)r.push('SB');if(p.id===S.bb)r.push('BB');return r.join('·')||'—'}
+function restart(){sequence++;if(timeout)clearTimeout(timeout);S={players:[2500,1850,3100,2200].map((v,i)=>({id:i,stack:v,street:0,total:0,hole:[],fold:false,allin:false,in:false,status:'WAITING'})),hand:23,dealer:-1,sb:-1,bb:-1,deck:[],board:[],phase:0,bet:0,raiseSize:BB,actor:-1,pending:new Set(),acted:new Set(),ended:true,log:[],message:'',results:[],showdowns:[],resultTitle:'',pick:'ALLIN'};newHand()}
+function newHand(){
+ sequence++;if(timeout)clearTimeout(timeout);$('raise').classList.remove('show');
+ if(S.players.filter(p=>p.stack>0).length<2){S.ended=true;S.actor=-1;S.resultTitle='SESSION COMPLETE';S.results=[{id:-1,amount:0,hand:'플레이어 부족 · 새 게임을 눌러주세요.'}];activity('게임 종료');render();return}
+ S.hand++;S.phase=0;S.deck=newDeck();S.board=[];S.bet=0;S.raiseSize=BB;S.acted=new Set();S.ended=false;S.log=[];S.results=[];S.showdowns=[];S.resultTitle='';
+ for(const p of S.players){p.in=p.stack>0;p.fold=false;p.allin=false;p.street=0;p.total=0;p.hole=[];p.status=p.in?'WAITING':'OUT'}
+ S.dealer=nextSeat(S.dealer,p=>p.in);
+ S.sb=S.players.filter(p=>p.in).length===2?S.dealer:nextSeat(S.dealer,p=>p.in);
+ S.bb=nextSeat(S.sb,p=>p.in);
+ for(let i=0;i<2;i++)for(const p of S.players)if(p.in)p.hole.push(S.deck.pop());
+ S.board=Array.from({length:5},()=>S.deck.pop());
+ commit(S.players[S.sb],SB);commit(S.players[S.bb],BB);
+ S.players[S.sb].status='SB';S.players[S.bb].status='BB';
+ S.bet=BB;S.pending=new Set(active().map(p=>p.id));
+ S.actor=nextSeat(S.bb,p=>S.pending.has(p.id));
+ activity('HAND '+S.hand+' · BTN '+seats[S.dealer]+' / SB '+seats[S.sb]+' / BB '+seats[S.bb]);
+ flow()
+}
+function endHand(title,results,showdowns=[]){S.ended=true;S.actor=-1;S.pending.clear();S.resultTitle=title;S.results=results;S.showdowns=showdowns;$('raise').classList.remove('show');activity(title);render()}
+function foldWin(){const w=alive()[0],amount=totalPot();w.stack+=amount;endHand('HAND COMPLETE — 폴드 승리',[{id:w.id,amount,hand:'폴드 승리 (쇼다운 없음)',pot:'전체 팟'}]);}
+function showdown(){
+ S.phase=4;
+ const contestants=alive(),scores={};for(const p of contestants)scores[p.id]=best([...p.hole,...S.board]);
+ const amounts=[...new Set(S.players.map(p=>p.total).filter(v=>v>0))].sort((a,b)=>a-b);
+ let last=0,prizes=new Map(),partials=[];
+ for(const threshold of amounts){
+  const members=S.players.filter(p=>p.total>=threshold),value=(threshold-last)*members.length;last=threshold;if(!value)continue;
+  const candidates=members.filter(p=>p.in&&!p.fold);
+  if(!candidates.length)continue;
+  let bestScore=scores[candidates[0].id];for(const p of candidates.slice(1))if(cmp(scores[p.id],bestScore)>0)bestScore=scores[p.id];
+  const winners=candidates.filter(p=>cmp(scores[p.id],bestScore)===0).sort((a,b)=>((a.id-S.dealer+3)%4)-((b.id-S.dealer+3)%4));
+  const share=Math.floor(value/winners.length),extra=value%winners.length;
+  for(let i=0;i<winners.length;i++){
+   const p=winners[i],winAmount=share+(i<extra?1:0);
+   p.stack+=winAmount;prizes.set(p.id,(prizes.get(p.id)||0)+winAmount);
+   partials.push({id:p.id,amount:winAmount,hand:handDesc(scores[p.id]),pot:threshold===amounts[0]?'메인 팟':'사이드 팟'});
+  }
+ }
+ const results=[...prizes.entries()].map(([id,amount])=>({id,amount,hand:handDesc(scores[id]),pot:partials.filter(x=>x.id===id).map(x=>x.pot).filter((x,i,a)=>a.indexOf(x)===i).join(' + ')}));
+ const details=contestants.map(p=>({id:p.id,cards:p.hole.map(code).join(' / '),hand:handDesc(scores[p.id]),win:prizes.get(p.id)||0}));
+ endHand('SHOWDOWN — 승패 결과',results,details)
+}
+function advanceStreet(){
+ if(S.phase===3){showdown();return}
+ S.phase++;S.bet=0;S.raiseSize=BB;S.acted=new Set();for(const p of S.players)p.street=0;
+ S.pending=new Set(active().map(p=>p.id));S.actor=nextSeat(S.dealer,p=>S.pending.has(p.id));
+ activity(levels[S.phase]+' 공개');flow()
+}
+function flow(previous=-1){
+ if(S.ended)return;
+ if(alive().length===1){foldWin();return}
+ for(const i of [...S.pending]){const p=S.players[i];if(!p.in||p.fold||p.allin||p.stack<=0)S.pending.delete(i)}
+ if(active().length<=1&&active().every(p=>amountOwed(p)===0))S.pending.clear();
+ if(!S.pending.size){advanceStreet();return}
+ if(previous>=0)S.actor=nextSeat(previous,p=>S.pending.has(p.id));
+ if(S.actor<0||!S.pending.has(S.actor))S.actor=nextSeat(S.dealer,p=>S.pending.has(p.id));
+ const p=S.players[S.actor];p.status='ACTIVE';
+ if(p.id===0){S.message='내 차례 · '+(amountOwed(p)?'콜 '+fmt(Math.min(amountOwed(p),p.stack)):'체크')+' 또는 레이즈';render()}
+ else{S.message=seats[p.id]+' 처리 중';render();const v=sequence;timeout=setTimeout(()=>{if(sequence===v&&!S.ended&&S.actor===p.id)cpuAction()},360)}
+}
+function doAction(id,action,target=0){
+ if(S.ended||id!==S.actor)return false;
+ const p=S.players[id],oldBet=S.bet,call=amountOwed(p);let full=false;
+ if(action==='fold'){p.fold=true;p.status='FOLD'}
+ else if(action==='call'){commit(p,call);p.status=call===0?'CHECK':p.allin?'ALL IN':'CALL'}
+ else if(action==='raise'||action==='allin'){
+  if(action==='allin')target=p.street+p.stack;
+  if(!Number.isFinite(target)||target<=p.street||target>p.street+p.stack)return false;
+  if(target>oldBet&&!canRaise(p))return false;
+  if(action==='raise'&&target<oldBet+S.raiseSize)return false;
+  commit(p,target-p.street);
+  if(p.street>oldBet){const inc=p.street-oldBet;full=inc>=S.raiseSize;S.bet=p.street;if(full)S.raiseSize=inc}
+  p.status=p.allin?'ALL IN':p.street>oldBet?'RAISE':'CALL';
+ }else return false;
+ activity(seats[id]+' '+p.status+(action==='raise'||action==='allin'?' '+fmt(p.street):''));
+ S.pending.delete(id);S.acted.add(id);
+ if(full){S.acted=new Set([id]);S.pending=new Set(active().filter(q=>q.id!==id).map(q=>q.id))}
+ else if(p.street>oldBet){for(const q of active())if(q.id!==id&&q.street<S.bet)S.pending.add(q.id)}
+ $('raise').classList.remove('show');flow(id);return true
+}
+function cpuPower(p){
+ if(S.phase===0){const a=p.hole[0],b=p.hole[1];return Math.min(.99,.16+(a.r+b.r)/43+(a.r===b.r?.33:0)+(a.s===b.s?.05:0)+(Math.abs(a.r-b.r)===1?.04:0))}
+ const visible=[0,3,4,5][S.phase];const sc=best([...p.hole,...S.board.slice(0,visible)]);
+ return Math.min(.99,.22+sc[0]*.10+sc[1]/110)
+}
+function cpuAction(){const p=S.players[S.actor];if(!p||S.ended)return;const owe=amountOwed(p),power=cpuPower(p),r=Math.random();let action='call';const costly=owe/Math.max(1,p.stack+owe);
+ if(owe&&power<.4&&costly>.12&&r<.7)action='fold';
+ else if(canRaise(p)&&p.street+p.stack>=S.bet+S.raiseSize&&power>.64&&r<.16)action='raise';
+ if(action==='raise'){const target=Math.min(p.street+p.stack,S.bet+S.raiseSize+(power>.85?BB:0));if(!doAction(p.id,'raise',target))doAction(p.id,'call')}
+ else doAction(p.id,action)
+}
+function humanAction(type){if(S.ended||S.actor!==0)return;S.pick=type.toUpperCase();if(type==='raise'){
+ const p=S.players[0],minimum=S.bet+S.raiseSize,maximum=p.street+p.stack;
+ if(!canRaise(p)||maximum<minimum){S.message='현재 최소 레이즈 금액이 부족합니다. F2 또는 F4를 사용하세요.';render();return}
+ $('raiseValue').min=minimum;$('raiseValue').max=maximum;$('raiseValue').value=minimum;
+ $('raiseHint').textContent='최소 '+fmt(minimum)+' / 최대 '+fmt(maximum)+' (총 베팅액)';$('raise').classList.add('show');render();return
+ }doAction(0,type)
+}
+function render(){
+ if(!S)return;
+ const hero=S.players[0],myTurn=!S.ended&&S.actor===0;
+ $('session').textContent='Session '+String(S.hand).padStart(5,'0');
+ $('players').innerHTML=S.players.map(p=>{
+  const badge=roles(p),status=!p.in?'OUT':p.fold?'FOLD':!S.ended&&S.actor===p.id?'ACTIVE':p.allin?'ALL IN':p.status;
+  return '<tr class="'+(myTurn&&p.id===0?'myturn':'')+'"><td>'+seats[p.id]+(p.id===0?' (ME)':'')+(badge!=='—'?'<span class="role">'+badge+'</span>':'')+'</td><td>'+status+'</td><td>'+fmt(p.stack)+'</td></tr>'
+ }).join('');
+ const v=[0,3,4,5,5][S.phase];$('shared').textContent=Array.from({length:5},(_,i)=>i<v?code(S.board[i]):'--').join(' · ');
+ $('private').textContent=hero.hole.length?hero.hole.map(code).join(' / '):'-- / --';
+ $('phase').textContent=levels[S.phase];$('pot').textContent=fmt(totalPot());$('call').textContent=myTurn?fmt(Math.min(hero.stack,amountOwed(hero))):'—';
+ $('selected').textContent='SELECTED FUNCTION: '+S.pick;
+ $('ready').textContent=S.ended?'Complete':myTurn?'Ready':'Processing';$('ready').className='tag'+(!myTurn?' wait':'');
+ $('message').textContent=S.message;
+ $('positions').textContent='BTN '+seats[S.dealer]+' · SB '+seats[S.sb]+' · BB '+seats[S.bb];
+ for(const b of root.querySelectorAll('.fn')){
+  const typ=b.dataset.action;let disabled=!myTurn;
+  if(typ==='raise'&&(!canRaise(hero)||hero.street+hero.stack<S.bet+S.raiseSize))disabled=true;
+  if(typ==='allin'&&(!hero.stack||(!canRaise(hero)&&hero.street+hero.stack>S.bet)))disabled=true;
+  b.disabled=disabled;b.classList.toggle('selected',S.pick===typ.toUpperCase())
+ }
+ $('result').classList.toggle('show',S.ended);$('resultTitle').textContent=S.resultTitle||'HAND COMPLETE';
+ $('wins').innerHTML=S.results.map(r=>'<div class="result-row"><span class="result-name">'+(r.id>=0?seats[r.id]:'SESSION')+'</span>'+(r.amount?'<span class="result-amount">+'+fmt(r.amount)+'</span>':'')+'<div>'+r.hand+'</div>'+(r.pot?'<span class="muted">'+r.pot+'</span>':'')+'</div>').join('');
+ $('hands').innerHTML=S.showdowns.length?'<div style="font-weight:700;margin:9px 0 4px">SHOWDOWN · 공개된 패</div>'+S.showdowns.map(r=>'<div class="showdown-row"><span>'+seats[r.id]+' · '+r.cards+'</span><span>'+r.hand+(r.win?' ✓':'')+'</span></div>').join(''):'<div style="color:#969696">쇼다운이 없으므로 상대의 패를 공개하지 않습니다.</div>';
+ $('next').style.display=S.ended&&S.players.filter(p=>p.stack>0).length>=2?'inline-block':'none';
+ $('log').innerHTML=S.log.map(x=>'<div>'+x.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</div>').join('')
+}
+root.querySelectorAll('.fn').forEach(b=>b.addEventListener('click',()=>humanAction(b.dataset.action)));
+$('cancel').onclick=()=>$('raise').classList.remove('show');
+$('confirm').onclick=()=>{const n=Number($('raiseValue').value),p=S.players[0];if(!Number.isInteger(n)||n<S.bet+S.raiseSize||n>p.street+p.stack){S.message='레이즈 금액을 확인하세요.';render();return}doAction(0,'raise',n)};
+$('next').onclick=newHand;$('reset').onclick=restart;
+root.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(!S||S.ended||S.actor!==0)return;const type={'1':'fold','2':'call','3':'raise','4':'allin','F1':'fold','F2':'call','F3':'raise','F4':'allin'}[e.key];if(type){e.preventDefault();humanAction(type)}});
+window.__holdemDev={getState:()=>S,handDesc,score5,best,cmp,newHand,restart,doAction};
+restart();
+})();
+</script></body></html>
