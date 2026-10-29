@@ -76,6 +76,11 @@
   }
 
   function text(el, s) { el.textContent = s; }
+  function badLink(msg) {
+    text(document.getElementById("title"), msg);
+    var c = document.getElementById("closed"); text(c, "앱이나 웹에서 다시 열어 주세요"); c.hidden = false;
+  }
+  if (!valid) badLink("올바르지 않은 링크예요");
   if (valid) {
     var headers = { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" };
     (key || inv
@@ -87,7 +92,7 @@
       .then(function (r) { return r.json(); })
       .then(function (rows) {
         var m = rows && rows[0];
-        if (!m) return;
+        if (!m) { badLink("볼 수 없는 미팅이에요"); return; }
         if (m.is_private) text(document.querySelector(".tag"), "비공개 미팅 초대");
         if (inv) {
           text(document.querySelector(".tag"), "참가 확정 초대");

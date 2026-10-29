@@ -75,11 +75,19 @@
     return (d.getMonth()+1) + "월 " + d.getDate() + "일 (" + days[d.getDay()] + ") " +
       String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
   }
+  function badLink(msg) {
+    document.getElementById("name").textContent = msg;
+    var box = document.getElementById("meetings"); box.innerHTML = "";
+    box.appendChild(el("div", "card empty", "앱이나 웹에서 다시 열어 주세요"));
+    document.getElementById("reviewsTitle").hidden = true;
+    document.getElementById("reviews").hidden = true;
+  }
+  if (!valid) badLink("올바르지 않은 링크예요");
   if (valid) {
     fetch(SUPABASE_URL + "/rest/v1/rpc/host_profile", { method: "POST", headers: H, body: JSON.stringify({ p_host: id }) })
       .then(function (r) { return r.json(); })
       .then(function (p) {
-        if (!p || !p.nickname) { document.getElementById("name").textContent = "볼 수 없는 호스트예요"; return; }
+        if (!p || !p.nickname) { badLink("볼 수 없는 호스트예요"); return; }
         document.title = p.nickname + " · 로미 호스트";
         document.getElementById("name").textContent = p.nickname;
         var chips = document.getElementById("chips");
@@ -122,7 +130,10 @@
           a.appendChild(el("div", null, "남 " + m.male_count + "/" + m.male_capacity + " · 여 " + m.female_count + "/" + m.female_capacity));
           box.appendChild(a);
         });
-      }).catch(function () {});
+      }).catch(function () {
+        var box = document.getElementById("meetings"); box.innerHTML = "";
+        box.appendChild(el("div", "card empty", "미팅을 불러오지 못했어요. 잠시 뒤 다시 열어 주세요"));
+      });
   }
 </script>
 </body>
