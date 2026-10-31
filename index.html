@@ -65,21 +65,6 @@
     .app.soon .icon { background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: 28px; color: #94a3b8; font-weight: 900; }
     .badge.prep { color: #92400e; background: #fef3c7; }
 
-    .games-sec { padding-top: 0; }
-    .h2row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-    .h2row a { font-size: 14px; color: var(--muted); text-decoration: none; white-space: nowrap; }
-    .h2row a:hover { color: var(--ink); }
-    .feature { display: grid; grid-template-columns: 1.15fr 0.85fr; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: #0b1530; color: #fff; text-decoration: none; }
-    .feature .cover { background: center / cover no-repeat; min-height: 260px; }
-    .feature .body { padding: 28px; display: flex; flex-direction: column; justify-content: center; }
-    .feature .head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-    .feature .head img { width: 56px; height: 56px; border-radius: 14px; }
-    .feature h3 { font-size: 22px; margin: 0; }
-    .feature .kind { font-size: 13px; color: #94a3b8; margin: 0; }
-    .feature p.desc { font-size: 15px; color: #cbd5e1; margin: 0 0 16px; }
-    .feature .btn { border-color: #334155; color: #fff; }
-    .feature .btn.primary { background: #ffb43a; border-color: #ffb43a; color: #0b1530; }
-    .feature .links a { color: #94a3b8; }
 
     .about { background: var(--soft); }
     .about p { color: #334155; max-width: 680px; margin: 0 0 12px; }
@@ -90,8 +75,6 @@
 
     @media (max-width: 860px) {
       .apps { grid-template-columns: 1fr; }
-      .feature { grid-template-columns: 1fr; }
-      .feature .cover { min-height: 0; aspect-ratio: 16 / 9; }
     }
     @media (max-width: 760px) {
       h1 { font-size: 32px; }
@@ -155,27 +138,10 @@
           </div>
         </div>
 
-        <div class="app soon">
-          <div class="icon">+</div>
-          <h3>Coming soon</h3>
-          <p class="kind">새 앱 준비 중</p>
-          <span class="badge soon">준비 중</span>
-          <p class="desc">다음 앱을 만들고 있어요. 출시되면 이곳에서 가장 먼저 소개할게요.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="games" class="games-sec">
-    <div class="wrap">
-      <div class="h2row"><h2>우리가 만든 게임</h2><a href="/games/">게임 전체 보기 →</a></div>
-      <div class="feature">
-        <div class="cover" style="background-image:url('img/waterheroes/battle.jpg')" role="img" aria-label="Water Heroes 전투 화면"></div>
-        <div class="body">
-          <div class="head">
-            <img src="img/waterheroes/icon-192.png" alt="Water Heroes 아이콘">
-            <div><h3>Water Heroes</h3><p class="kind">동물 소방대 디펜스</p></div>
-          </div>
+        <div class="app">
+          <img class="icon" src="img/waterheroes/icon-192.png" alt="Water Heroes 아이콘">
+          <h3>Water Heroes</h3>
+          <p class="kind">동물 소방대 디펜스 게임</p>
           <span class="badge prep">Google Play 출시 준비 중</span>
           <p class="desc">살아 움직이는 불꽃으로부터 도시를 지켜요. 동물 소방대원을 보내고 스킬로 판을 뒤집는 디펜스 게임이에요.</p>
           <div class="btns">
