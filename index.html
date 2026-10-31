@@ -45,8 +45,16 @@
     section { padding: 56px 0; }
     h2 { font-size: 28px; font-weight: 900; margin: 0 0 24px; letter-spacing: -0.01em; }
 
-    .apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .app { border: 1px solid var(--line); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; background: #fff; }
+    /* 앱 갤러리: 한 화면에 3장 (폰은 1장), 양옆 화살표로 넘김 */
+    .gallery { position: relative; }
+    .apps { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; padding: 2px; }
+    .apps::-webkit-scrollbar { display: none; }
+    .app { flex: 0 0 calc((100% - 40px) / 3); scroll-snap-align: start; border: 1px solid var(--line); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; background: #fff; }
+    .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: #fff; color: var(--ink); font-size: 22px; line-height: 1; cursor: pointer; box-shadow: 0 4px 14px rgba(15,23,42,.12); z-index: 1; }
+    .nav-btn.prev { left: -60px; }
+    .nav-btn.next { right: -60px; }
+    .nav-btn:hover { border-color: var(--ink); }
+    .nav-btn:disabled { opacity: .3; cursor: default; }
     .app .icon { width: 64px; height: 64px; border-radius: 16px; display: block; }
     .app h3 { font-size: 20px; margin: 16px 0 2px; }
     .app .kind { font-size: 13px; color: var(--muted); margin: 0 0 12px; }
@@ -72,8 +80,12 @@
     footer strong { color: var(--ink); }
     footer p { margin: 4px 0; }
 
+    @media (max-width: 1180px) {
+      .nav-btn.prev { left: -14px; }
+      .nav-btn.next { right: -14px; }
+    }
     @media (max-width: 860px) {
-      .apps { grid-template-columns: 1fr; }
+      .app { flex-basis: 86%; }
     }
     @media (max-width: 760px) {
       h1 { font-size: 32px; }
@@ -104,6 +116,9 @@
   <section id="apps">
     <div class="wrap">
       <h2>우리가 만든 앱</h2>
+      <div class="gallery">
+      <button class="nav-btn prev" type="button" aria-label="이전 앱">&lsaquo;</button>
+      <button class="nav-btn next" type="button" aria-label="다음 앱">&rsaquo;</button>
       <div class="apps">
         <div class="app">
           <img class="icon" src="img/waterheroes/icon-192.png" alt="Water Heroes 아이콘">
@@ -159,6 +174,7 @@
           <p class="desc">다음 앱을 만들고 있어요. 출시되면 이곳에서 가장 먼저 소개할게요.</p>
         </div>
       </div>
+      </div>
     </div>
   </section>
 
@@ -180,5 +196,28 @@
       <p style="margin-top:12px">© 2026 Veldot Labs. 로미(ROMI)·작심3일·Water Heroes는 벨도트랩스의 서비스입니다.</p>
     </div>
   </footer>
+  <script>
+    (function () {
+      var track = document.querySelector('.apps');
+      var prev = document.querySelector('.nav-btn.prev');
+      var next = document.querySelector('.nav-btn.next');
+      function step() {
+        var card = track.querySelector('.app');
+        return card.getBoundingClientRect().width + 20;
+      }
+      function update() {
+        var max = track.scrollWidth - track.clientWidth - 2;
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = track.scrollLeft >= max;
+        var hide = max <= 0;
+        prev.style.display = next.style.display = hide ? 'none' : '';
+      }
+      prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
 </body>
 </html>
