@@ -8,7 +8,8 @@
 | 주소 | 내용 |
 |---|---|
 | /games/waterheroes/ | Water Heroes 소개 (Play 출시 준비 중) |
-| /games/waterheroes/privacy.html | Water Heroes 개인정보처리방침 (Play 콘솔과 게임 설정 화면에 연결됨) |
+| /games/waterheroes/privacy.html | Water Heroes 개인정보처리방침 (Play 콘솔과 게임 설정 ▸ 게임 정보에 연결됨) |
+| /games/waterheroes/terms.html | Water Heroes 이용약관 (게임 설정 ▸ 게임 정보에 연결됨) |
 | /waterheroes/privacy.html | 옛 주소, 위로 넘김 (지우지 말 것) |
 
 ## /dl/ — 출시 전 비공식 자료 (링크 전용)
