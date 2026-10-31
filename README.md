@@ -2,6 +2,15 @@
 벨도트랩스 회사 홈 겸 로미 소개 페이지 (GitHub Pages, 사용자 정의 도메인 veldotlabs.com — DNS는 호스팅케이알).
 스크린샷은 img/ (실기기 캡처에서 상태바 잘라냄).
 
+## /games/ — 게임
+게임 목록은 `/games/`, 게임마다 `/games/<이름>/`(소개)와 `/games/<이름>/privacy.html`(개인정보처리방침, 한국어·영어 한 페이지). 그림은 `img/<이름>/`. 새 게임을 추가하면 홈(index.html)의 "우리가 만든 게임"과 `/games/` 카드도 같이 고친다.
+
+| 주소 | 내용 |
+|---|---|
+| /games/waterheroes/ | Water Heroes 소개 (Play 출시 준비 중) |
+| /games/waterheroes/privacy.html | Water Heroes 개인정보처리방침 (Play 콘솔과 게임 설정 화면에 연결됨) |
+| /waterheroes/privacy.html | 옛 주소, 위로 넘김 (지우지 말 것) |
+
 ## /dl/ — 출시 전 비공식 자료 (링크 전용)
 홈·앱 소개 어디에도 링크하지 않고, 아는 사람에게 주소만 전달. 검색 노출 막음(robots.txt `Disallow: /dl/`, 페이지는 noindex).
 새 비공식 앱·APK·시험 페이지도 전부 여기(`dl/이름…`)에 둔다. 루트에 새 폴더 만들지 말 것.
