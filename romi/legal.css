@@ -1,0 +1,54 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #1e293b;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+  background: #ffffff;
+  word-break: keep-all;
+}
+h1 { font-size: 22px; margin: 0 0 4px; color: #0f172a; }
+h2 { font-size: 17px; margin: 32px 0 8px; color: #0f172a; }
+h3 { font-size: 15px; margin: 18px 0 6px; }
+p { margin: 0 0 10px; }
+ul, ol { margin: 0 0 12px; padding-left: 22px; }
+li { margin-bottom: 4px; }
+a { color: #4f46e5; }
+.brand { color: #4f46e5; font-weight: 800; letter-spacing: -0.02em; }
+.meta { color: #64748b; font-size: 13px; margin-bottom: 20px; }
+.note {
+  background: #eef2ff;
+  border-left: 3px solid #4f46e5;
+  padding: 12px 14px;
+  border-radius: 6px;
+  margin: 14px 0;
+  font-size: 14px;
+}
+table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; font-size: 14px; }
+th, td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; vertical-align: top; }
+th { background: #f8fafc; font-weight: 600; }
+.table-wrap { overflow-x: auto; }
+.back {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 8px 14px;
+  color: #334155;
+  text-decoration: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.links a {
+  display: block;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #0f172a;
+  font-weight: 600;
+}
+.links a span { display: block; font-weight: 400; color: #64748b; font-size: 13px; }
+.biz { margin-top: 32px; padding-top: 16px; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }

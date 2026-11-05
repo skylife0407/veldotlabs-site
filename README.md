@@ -12,6 +12,18 @@
 | /games/waterheroes/terms.html | Water Heroes 이용약관 (게임 설정 ▸ 게임 정보에 연결됨) |
 | /waterheroes/privacy.html | 옛 주소, 위로 넘김 (지우지 말 것) |
 
+## /romi/ — 로미 법적 고지
+| 주소 | 내용 |
+|---|---|
+| /romi/legal.html | 법적 고지 목록 |
+| /romi/terms.html | 이용약관 (Play 콘솔 서비스 약관 URL) |
+| /romi/privacy.html | 개인정보처리방침 |
+| /romi/account-deletion.html | 계정 및 데이터 삭제 요청 (Play 콘솔 데이터 삭제 URL) |
+| /romi/child-safety.html | 아동 안전 표준 |
+
+약관 원본은 여기(`romi/*.html`, 스타일 `romi/legal.css`). 고칠 땐 여기만 고친다.
+옛 주소 skylife0407.github.io/romi-legal/* 은 여기로 넘김(지우지 말 것).
+
 ## /jaksim3days/ — 작심3일
 | 주소 | 내용 |
 |---|---|
