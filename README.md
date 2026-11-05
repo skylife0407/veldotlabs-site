@@ -12,6 +12,17 @@
 | /games/waterheroes/terms.html | Water Heroes 이용약관 (게임 설정 ▸ 게임 정보에 연결됨) |
 | /waterheroes/privacy.html | 옛 주소, 위로 넘김 (지우지 말 것) |
 
+## /jaksim3days/ — 작심3일
+| 주소 | 내용 |
+|---|---|
+| /jaksim3days/ | 작심3일 소개 |
+| /jaksim3days/terms.html | 이용약관 (Play 콘솔 서비스 약관 URL) |
+| /jaksim3days/privacy.html | 개인정보처리방침 |
+| /jaksim3days/account-deletion.html | 계정 및 데이터 삭제 요청 (Play 콘솔 데이터 삭제 URL) |
+
+원본은 앱 저장소 `app/src/main/assets/terms_of_service.html`, `privacy_policy.html`. 약관을 고치면 둘 다 고친다.
+옛 주소 skylife0407.github.io/jaksim3days-legal/* 은 여기로 넘김(지우지 말 것).
+
 ## /dl/ — 출시 전 비공식 자료 (링크 전용)
 홈·앱 소개 어디에도 링크하지 않고, 아는 사람에게 주소만 전달. 검색 노출 막음(robots.txt `Disallow: /dl/`, 페이지는 noindex).
 새 비공식 앱·APK·시험 페이지도 전부 여기(`dl/이름…`)에 둔다. 루트에 새 폴더 만들지 말 것.

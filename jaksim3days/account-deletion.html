@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>작심3일 계정 및 데이터 삭제 요청</title>
+    <link rel="canonical" href="https://veldotlabs.com/jaksim3days/account-deletion.html">
+    <style>
+        body {
+            max-width: 760px;
+            margin: 0 auto;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #1A1A1A;
+            max-width: 720px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+        h1 { font-size: 24px; margin-bottom: 8px; }
+        h2 { font-size: 18px; margin-top: 32px; margin-bottom: 8px; }
+        .meta { color: #888; font-size: 13px; margin-bottom: 24px; }
+        ol, ul { padding-left: 22px; }
+        li { margin-bottom: 6px; }
+        code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "SF Mono", Consolas, monospace;
+            font-size: 13px;
+        }
+        .note {
+            background: #F9F9F9;
+            border-left: 3px solid #3E7C59;
+            padding: 12px 14px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+        .email {
+            display: inline-block;
+            background: #F0F5F2;
+            padding: 10px 14px;
+            border-radius: 6px;
+            color: #2A3A3F;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid #D3E0D8;
+        }
+        .email:hover { background: #E4EDE8; }
+        .back {
+            display: inline-block;
+            margin-top: 32px;
+            padding: 8px 14px;
+            color: #2A3A3F;
+            text-decoration: none;
+            border: 1px solid #E0E0E0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>작심3일 계정 및 데이터 삭제 요청</h1>
+    <p class="meta">앱: 작심3일 (com.jaksim.threedays) · 개발자: skylife0407 · 시행일 2026-04-23</p>
+
+    <p>
+        작심3일 앱은 사용자가 언제든지 계정과 관련 데이터를 직접 삭제할 수 있도록 두 가지 경로를 제공합니다.
+    </p>
+
+    <h2>방법 1 — 앱 내에서 직접 삭제 (권장)</h2>
+    <ol>
+        <li>작심3일 앱 실행</li>
+        <li>하단 탭 중 <strong>"프로필"</strong> 선택</li>
+        <li>화면 하단의 <strong>"회원 탈퇴"</strong> 버튼 탭</li>
+        <li>확인 대화상자에서 <strong>"탈퇴"</strong> 확인</li>
+    </ol>
+    <p>
+        이 경로를 거치면 아래 "삭제되는 데이터" 항목이 즉시 제거됩니다. 탈퇴 후 별도 복구 절차는 없습니다.
+    </p>
+
+    <h2>방법 2 — 이메일로 요청</h2>
+    <p>
+        앱에 접근할 수 없거나 앱을 설치하지 않은 상태라면 아래 이메일로 삭제를 요청할 수 있습니다.
+    </p>
+    <p>
+        <a class="email" href="mailto:contact@veldotlabs.com?subject=%5B%EC%9E%91%EC%8B%AC3%EC%9D%BC%5D%20%EA%B3%84%EC%A0%95%20%EC%82%AD%EC%A0%9C%20%EC%9A%94%EC%B2%AD">contact@veldotlabs.com</a>
+    </p>
+    <p>요청 시 다음 정보를 함께 보내주세요.</p>
+    <ul>
+        <li>작심3일 가입 시 사용한 <strong>Google 계정 이메일</strong> 주소</li>
+        <li>제목: <code>[작심3일] 계정 삭제 요청</code></li>
+    </ul>
+    <div class="note">
+        이메일 요청은 접수 후 <strong>영업일 기준 7일 이내</strong>에 처리됩니다. 처리 완료 시 답신 메일을 보냅니다.
+    </div>
+
+    <h2>삭제되는 데이터</h2>
+    <p>계정 삭제 시 아래 항목이 즉시 제거됩니다.</p>
+    <ul>
+        <li>Google 로그인 정보 (UID, 이메일, 프로필명, 프로필 사진)</li>
+        <li>팀 챌린지 참여 기록 (팀 멤버 정보, 공유 메모, 인증 사진)</li>
+        <li>팀 숲 기여 타일, 리액션 기록</li>
+        <li>푸시 알림 토큰 (FCM)</li>
+        <li>숲 포인트 지갑</li>
+        <li>차단 목록</li>
+    </ul>
+
+    <h2>보관되는 데이터</h2>
+    <p>
+        아래 항목은 서비스 운영상 필요 또는 법적 의무에 따라 제한된 기간 동안 보관됩니다.
+    </p>
+    <ul>
+        <li><strong>신고 기록</strong> — 본인이 신고한 또는 타인으로부터 신고된 내역. 허위 신고·악용 방지 목적으로 <strong>최대 90일</strong> 보관 후 자동 삭제됩니다. 사용자 식별자는 삭제 시점에 비식별화됩니다.</li>
+        <li><strong>크래시 로그</strong> (Firebase Crashlytics) — 기기 식별자 없이 익명화된 상태로 <strong>최대 90일</strong> 보관됩니다.</li>
+        <li><strong>서버 접근 로그</strong> — Firebase 기본 정책에 따라 일정 기간 보관됩니다. 사용자 식별 정보는 포함되지 않습니다.</li>
+    </ul>
+
+    <h2>개인 습관 데이터 안내</h2>
+    <p>
+        작심3일의 개인 습관 기록(체크인 날짜, 메모, 사진)은 기본적으로 <strong>사용자의 기기에만</strong> 저장됩니다.
+        Google 계정을 연결하지 않아도 앱의 개인 기능은 완전히 동작하며, 이 데이터는 앱 제거 시 함께 삭제됩니다.
+    </p>
+
+    <h2>문의</h2>
+    <p>
+        삭제 요청 처리 중 문의사항이 있으시면 언제든 <a href="mailto:contact@veldotlabs.com">contact@veldotlabs.com</a> 으로 연락 주세요.
+    </p>
+
+    <a class="back" href="./">← 작심3일 소개로</a>
+</body>
+</html>
