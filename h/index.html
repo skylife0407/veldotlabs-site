@@ -92,7 +92,7 @@
         document.getElementById("name").textContent = p.nickname;
         var chips = document.getElementById("chips");
         chips.appendChild(el("span", "chip",
-          p.is_new ? "🏆 신규 호스트" : p.success_rate != null ? "🏆 성사율 " + p.success_rate + "%" : "🏆 호스트"));
+          p.is_new ? "🏆 신규 호스트" : p.match_count ? "🏆 누적 매칭 " + p.match_count + "쌍" : "🏆 호스트"));
         if (p.review_count > 0) {
           var s = el("span");
           s.appendChild(el("span", "star", "★ "));
@@ -100,7 +100,7 @@
           s.appendChild(el("span", "meta", " 후기 " + p.review_count));
           chips.appendChild(s);
         }
-        document.getElementById("meta").textContent = "진행한 미팅 " + p.done_count + "회" + (p.region ? " · " + p.region : "");
+        document.getElementById("meta").textContent = "진행한 미팅 " + p.done_count + "회" + (p.match_count && p.avg_matches != null ? " · 미팅당 평균 " + p.avg_matches + "쌍" : "") + (p.region ? " · " + p.region : "");
         if (p.intro) { var i = document.getElementById("intro"); i.textContent = p.intro; i.hidden = false; }
         var box = document.getElementById("reviews");
         if (p.recent_reviews && p.recent_reviews.length) {
